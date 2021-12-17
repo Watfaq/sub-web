@@ -433,7 +433,7 @@ export default {
         "&insert=" +
         this.form.insert;
 
-      if (this.advanced === "2") {
+
         if (this.form.remoteConfig !== "") {
           this.customSubUrl +=
             "&config=" + encodeURIComponent(this.form.remoteConfig);
@@ -484,7 +484,7 @@ export default {
 
           this.customSubUrl += "&new_name=" + this.form.new_name.toString();
         }
-      }
+      
 
       this.$copyText(this.customSubUrl);
       this.$message.success("定制订阅已复制到剪贴板");
