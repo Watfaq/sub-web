@@ -21,9 +21,7 @@
                 />
               </el-form-item>
               <el-form-item label="客户端:">
-                <el-select v-model="form.clientType" style="width: 100%">
-                  <el-option v-for="(v, k) in options.clientTypes" :key="k" :label="k" :value="v"></el-option>
-                </el-select>
+                  <el-input disabled placeholder="Choc" />
               </el-form-item>
               <el-form-item label="后端地址:">
                   <el-autocomplete
