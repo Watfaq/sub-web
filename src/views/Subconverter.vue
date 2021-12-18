@@ -237,11 +237,11 @@ export default {
         },
         backendOptions: [{ value: "https://api.dler.io/sub?" }],
         remoteConfig: [
-          {
-            label: "universal",
+         {
+            label: "Choc Optimized￼",
             options: [
               {
-                label: "No-Urltest",
+                label: "Urltest",
                 value:
                   "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini"
               },
@@ -249,6 +249,16 @@ export default {
                 label: "Urltest",
                 value:
                   "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/urltest.ini"
+              }
+            ]
+          },
+          {
+            label: "universal",
+            options: [
+              {
+                label: "Urltest",
+                value:
+                  "https://raw.githubusercontent.com/Watfaq/sub-web/master/conf/urltest.ini"
               }
             ]
           },
@@ -261,39 +271,14 @@ export default {
                   "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/maying.ini"
               },
               {
-                label: "Ytoo",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ytoo.ini"
-              },
-              {
                 label: "FlowerCloud",
                 value:
                   "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/flowercloud.ini"
               },
               {
-                label: "NyanCAT",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/nyancat.ini"
-              },
-              {
                 label: "Nexitally",
                 value:
                   "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/nexitally.ini"
-              },
-              {
-                label: "SoCloud",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/socloud.ini"
-              },
-              {
-                label: "ARK",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ark.ini"
-              },
-              {
-                label: "ssrCloud",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ssrcloud.ini"
               }
             ]
           },
