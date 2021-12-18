@@ -305,9 +305,6 @@ export default {
     onCopy() {
       this.$message.success("Copied!");
     },
-    gotoGayhub() {
-      window.open(gayhubRelease);
-    },
     gotoRemoteConfig() {
       window.open(remoteConfigSample);
     },
@@ -318,14 +315,7 @@ export default {
       }
 
       const url = "choc://install-config?url=";
-      window.open(
-        url +
-          encodeURIComponent(
-            this.curtomShortSubUrl !== ""
-              ? this.curtomShortSubUrl
-              : this.customSubUrl
-          )
-      );
+      window.open(url + this.customSubUrl);
     },
     surgeInstall() {
       if (this.customSubUrl === "") {
