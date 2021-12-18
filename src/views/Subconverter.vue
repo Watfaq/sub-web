@@ -30,9 +30,8 @@
                     style="width: 100%"
                     v-model="form.customBackend"
                     :fetch-suggestions="backendSearch"
-                    placeholder="动动小手，（建议）自行搭建后端服务。例：http://127.0.0.1:25500/sub?"
+                    placeholder="请选择所需后端"
                   >
-                    <el-button slot="append" @click="gotoGayhub" icon="el-icon-link">前往项目仓库</el-button>
                   </el-autocomplete>
                 </el-form-item>
                 <el-form-item label="远程配置:">
@@ -69,9 +68,6 @@
                 </el-form-item>
                 <el-form-item label-width="0px">
                   <el-row type="flex">
-                    <el-col>
-                      <el-checkbox v-model="form.nodeList" label="输出为 Node List" border></el-checkbox>
-                    </el-col>
                     <el-popover placement="bottom" v-model="form.extraset">
                       <el-row>
                         <el-checkbox v-model="form.emoji" label="Emoji"></el-checkbox>
@@ -137,23 +133,6 @@
                 </el-input>
               </el-form-item>
 
-              <el-form-item label-width="0px" style="margin-top: 40px; text-align: center">
-                <el-button
-                  style="width: 120px"
-                  type="danger"
-                  @click="makeUrl"
-                  :disabled="form.sourceSubUrl.length === 0"
-                >生成订阅链接</el-button>
-                <el-button
-                  style="width: 120px"
-                  type="danger"
-                  @click="makeShortUrl"
-                  :loading="loading"
-                  :disabled="customSubUrl.length === 0"
-                >生成短链接</el-button>
-                <!-- <el-button style="width: 120px" type="primary" @click="surgeInstall" icon="el-icon-connection">一键导入Surge</el-button> -->
-              </el-form-item>
-
               <el-form-item label-width="0px" style="text-align: center">
                 <el-button
                   style="width: 120px"
@@ -168,7 +147,7 @@
                   @click="clashInstall"
                   icon="el-icon-connection"
                   :disabled="customSubUrl.length === 0"
-                >一键导入Clash</el-button>
+                >一键导入</el-button>
               </el-form-item>
             </el-form>
           </el-container>
@@ -243,57 +222,12 @@ export default {
               {
                 label: "Urltest",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini"
-              },
-              {
-                label: "Urltest",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/urltest.ini"
-              }
-            ]
-          },
-          {
-            label: "universal",
-            options: [
-              {
-                label: "Urltest",
-                value:
                   "https://raw.githubusercontent.com/Watfaq/sub-web/master/conf/urltest.ini"
-              }
-            ]
-          },
-          {
-            label: "customized",
-            options: [
-              {
-                label: "Maying",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/maying.ini"
               },
               {
-                label: "FlowerCloud",
+                label: "No Urltest",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/flowercloud.ini"
-              },
-              {
-                label: "Nexitally",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/nexitally.ini"
-              }
-            ]
-          },
-          {
-            label: "Special",
-            options: [
-              {
-                label: "NeteaseUnblock(仅规则，No-Urltest)",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/netease.ini"
-              },
-              {
-                label: "Basic(仅GEOIP CN + Final)",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/basic.ini"
+                  "https://raw.githubusercontent.com/Watfaq/sub-web/master/conf/no-urltest.ini"
               }
             ]
           }
@@ -307,7 +241,7 @@ export default {
         excludeRemarks: "",
         includeRemarks: "",
         filename: "",
-        emoji: true,
+        emoji: false,
         nodeList: false,
         extraset: false,
         sort: false,
@@ -321,9 +255,6 @@ export default {
 
         // tpl 定制功能
         tpl: {
-          surge: {
-            doh: false // dns 查询是否使用 DoH
-          },
           clash: {
             doh: false
           }
