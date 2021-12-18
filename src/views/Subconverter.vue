@@ -4,8 +4,7 @@
       <el-col>
         <el-card>
           <div slot="header">
-            Subscription Converter
-            <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" />
+            Choc 订阅转换
 
             <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
           </div>
@@ -37,7 +36,7 @@
                     v-model="form.remoteConfig"
                     allow-create
                     filterable
-                    placeholder="请选择"
+                    placeholder="请选择 Choc 配置"
                     style="width: 100%"
                   >
                     <el-option-group
@@ -289,7 +288,7 @@ export default {
     };
   },
   created() {
-    document.title = "Subscription Converter";
+    document.title = "Choc 订阅转换";
     this.isPC = this.$getOS().isPc;
 
     // 获取 url cache
@@ -305,9 +304,6 @@ export default {
   methods: {
     onCopy() {
       this.$message.success("Copied!");
-    },
-    goToProject() {
-      window.open(project);
     },
     gotoGayhub() {
       window.open(gayhubRelease);
