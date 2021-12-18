@@ -4,7 +4,7 @@
       <el-col>
         <el-card>
           <div slot="header">
-            Choc 订阅转换
+            订阅转换 for Choc
 
             <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
           </div>
@@ -36,7 +36,7 @@
                     v-model="form.remoteConfig"
                     allow-create
                     filterable
-                    placeholder="请选择 Choc 配置"
+                    placeholder="请选择 Choc配置"
                     style="width: 100%"
                   >
                     <el-option-group
@@ -205,7 +205,6 @@
 <script>
 const project = process.env.VUE_APP_PROJECT
 const remoteConfigSample = process.env.VUE_APP_SUBCONVERTER_REMOTE_CONFIG
-const gayhubRelease = process.env.VUE_APP_BACKEND_RELEASE
 const defaultBackend = process.env.VUE_APP_SUBCONVERTER_DEFAULT_BACKEND + '/sub?'
 const shortUrlBackend = process.env.VUE_APP_MYURLS_DEFAULT_BACKEND + '/short'
 const configUploadBackend = process.env.VUE_APP_CONFIG_UPLOAD_BACKEND + '/config/upload'
@@ -288,7 +287,7 @@ export default {
     };
   },
   created() {
-    document.title = "Choc 订阅转换";
+    document.title = "订阅转换 for Choc";
     this.isPC = this.$getOS().isPc;
 
     // 获取 url cache
@@ -304,6 +303,9 @@ export default {
   methods: {
     onCopy() {
       this.$message.success("Copied!");
+    },
+    goToProject() {
+      window.open(project);
     },
     gotoRemoteConfig() {
       window.open(remoteConfigSample);
