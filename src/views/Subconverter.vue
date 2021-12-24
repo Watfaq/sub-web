@@ -23,20 +23,27 @@
                   <el-input disabled placeholder="Choc" />
               </el-form-item>
               <el-form-item label="后端地址:">
-                  <el-autocomplete
-                    style="width: 100%"
+                  <el-select
                     v-model="form.customBackend"
-                    :fetch-suggestions="backendSearch"
-                    placeholder="请选择订阅后端"
+                    allow-create
+                    filterable
+                    placeholder="请选择后端地址"
+                    style="width: 100%"
                   >
-                  </el-autocomplete>
+                    <el-option
+                      v-for="item in options.backendOptions"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    ></el-option>
+                  </el-select>
                 </el-form-item>
                 <el-form-item label="远程配置:">
                   <el-select
                     v-model="form.remoteConfig"
                     allow-create
                     filterable
-                    placeholder="请选择 Choc配置"
+                    placeholder="请选择 Choc 配置"
                     style="width: 100%"
                   >
                     <el-option-group
@@ -212,8 +219,8 @@ export default {
           Choc: "clash",
         },
         backendOptions: [
-          { value: "https://api.dler.io/sub?" },
-          { value: "https://sub.id9.cc/sub?" },
+          { label: 'Dler', value: "https://api.dler.io/sub?" },
+          { label: 'id9', value: "https://sub.id9.cc/sub?" },
         ],
         remoteConfig: [
           {
