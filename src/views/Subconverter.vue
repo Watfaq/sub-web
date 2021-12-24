@@ -31,28 +31,6 @@
                   >
                   </el-autocomplete>
                 </el-form-item>
-                <el-form-item label="配置模板:">
-                  <el-select
-                    v-model="form.remoteTemplate"
-                    allow-create
-                    filterable
-                    placeholder="请选择配置模板"
-                    style="width: 100%"
-                  >
-                    <el-option-group
-                      v-for="group in options.remoteTemplate"
-                      :key="group.label"
-                      :label="group.label"
-                    >
-                      <el-option
-                        v-for="item in group.options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                      ></el-option>
-                    </el-option-group>
-                  </el-select>
-                </el-form-item>
                 <el-form-item label="远程配置:">
                   <el-select
                     v-model="form.remoteConfig"
@@ -90,9 +68,6 @@
                     <el-popover placement="bottom" v-model="form.extraset">
                       <el-row>
                         <el-checkbox v-model="form.emoji" label="Emoji"></el-checkbox>
-                      </el-row>
-                      <el-row>
-                        <el-checkbox v-model="form.new_name" label="Clash New Field"></el-checkbox>
                       </el-row>
                       <el-row>
                         <el-checkbox v-model="form.udp" @change="needUdp = true" label="启用 UDP"></el-checkbox>
@@ -248,17 +223,6 @@ export default {
               }
             ]
           }
-        ],
-        remoteTemplate: [
-          {
-            label: "Config Template",
-            options: [
-              {
-                label: "Basic",
-                value: "https://raw.githubusercontent.com/Watfaq/choc-configs/main/templates/basic.yaml"
-              }
-            ]
-          }
         ]
       },
       form: {
@@ -266,7 +230,6 @@ export default {
         clientType: "",
         customBackend: "",
         remoteConfig: "",
-        remoteTemplate: "",
         excludeRemarks: "",
         includeRemarks: "",
         filename: "",
@@ -280,7 +243,6 @@ export default {
         fdn: false,
         appendType: false,
         insert: false, // 是否插入默认订阅的节点，对应配置项 insert_url
-        new_name: true, // 是否使用 Clash 新字段
 
         // tpl 定制功能
         tpl: {
@@ -314,6 +276,8 @@ export default {
   },
   mounted() {
     this.form.clientType = "clash";
+    this.form.customBackend = "https://api.dler.io/sub?";
+    this.form.remoteConfig = "https://raw.githubusercontent.com/Watfaq/choc-configs/main/configs/basic.ini";
     this.notify();
     this.getBackendVersion();
   },
@@ -360,54 +324,47 @@ export default {
         this.form.insert;
 
 
-        if (this.form.remoteConfig !== "") {
-          this.customSubUrl +=
-            "&config=" + encodeURIComponent(this.form.remoteConfig);
-        }
-        if (this.form.excludeRemarks !== "") {
-          this.customSubUrl +=
-            "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
-        }
-        if (this.form.includeRemarks !== "") {
-          this.customSubUrl +=
-            "&include=" + encodeURIComponent(this.form.includeRemarks);
-        }
-        if (this.form.filename !== "") {
-          this.customSubUrl +=
-            "&filename=" + encodeURIComponent(this.form.filename);
-        }
-        if (this.form.appendType) {
-          this.customSubUrl +=
-            "&append_type=" + this.form.appendType.toString();
-        }
-
+      if (this.form.remoteConfig !== "") {
         this.customSubUrl +=
-          "&emoji=" +
-          this.form.emoji.toString() +
-          "&list=" +
-          this.form.nodeList.toString() +
-          "&tfo=" +
-          this.form.tfo.toString() +
-          "&scv=" +
-          this.form.scv.toString() +
-          "&fdn=" +
-          this.form.fdn.toString() +
-          "&sort=" +
-          this.form.sort.toString();
+          "&config=" + encodeURIComponent(this.form.remoteConfig);
+      }
+      if (this.form.excludeRemarks !== "") {
+        this.customSubUrl +=
+          "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
+      }
+      if (this.form.includeRemarks !== "") {
+        this.customSubUrl +=
+          "&include=" + encodeURIComponent(this.form.includeRemarks);
+      }
+      if (this.form.filename !== "") {
+        this.customSubUrl +=
+          "&filename=" + encodeURIComponent(this.form.filename);
+      }
+      if (this.form.appendType) {
+        this.customSubUrl +=
+          "&append_type=" + this.form.appendType.toString();
+      }
 
-        if (this.needUdp) {
-          this.customSubUrl += "&udp=" + this.form.udp.toString()
-        }
+      this.customSubUrl +=
+        "&emoji=" +
+        this.form.emoji.toString() +
+        "&list=" +
+        this.form.nodeList.toString() +
+        "&tfo=" +
+        this.form.tfo.toString() +
+        "&scv=" +
+        this.form.scv.toString() +
+        "&fdn=" +
+        this.form.fdn.toString() +
+        "&sort=" +
+        this.form.sort.toString();
 
-        if (this.form.clientType === "clash") {
-          this.customSubUrl += "&new_name=" + this.form.new_name.toString();
-          if (this.form.remoteTemplate !== '')
-          {
-            this.customSubUrl += "&clash_rule_base=" + encodeURIComponent(this.form.remoteTemplate);
-          }
-        }
-      
+      if (this.needUdp) {
+        this.customSubUrl += "&udp=" + this.form.udp.toString()
+      }
 
+      this.customSubUrl += "&new_name=true";
+    
       this.$copyText(this.customSubUrl);
       this.$message.success("定制订阅已复制到剪贴板");
     },
