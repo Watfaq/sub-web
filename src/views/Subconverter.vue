@@ -31,6 +31,28 @@
                   >
                   </el-autocomplete>
                 </el-form-item>
+                <el-form-item label="配置模板:">
+                  <el-select
+                    v-model="form.remoteTemplate"
+                    allow-create
+                    filterable
+                    placeholder="请选择配置模板"
+                    style="width: 100%"
+                  >
+                    <el-option-group
+                      v-for="group in options.remoteTemplate"
+                      :key="group.label"
+                      :label="group.label"
+                    >
+                      <el-option
+                        v-for="item in group.options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      ></el-option>
+                    </el-option-group>
+                  </el-select>
+                </el-form-item>
                 <el-form-item label="远程配置:">
                   <el-select
                     v-model="form.remoteConfig"
@@ -85,15 +107,6 @@
                         <el-checkbox v-model="form.fdn" label="过滤非法节点"></el-checkbox>
                       </el-row>
                       <el-button slot="reference">更多选项</el-button>
-                    </el-popover>
-                    <el-popover placement="bottom" style="margin-left: 10px">
-                      <el-row>
-                        <el-checkbox v-model="form.tpl.clash.doh" label="Clash.DoH"></el-checkbox>
-                      </el-row>
-                      <el-row>
-                        <el-checkbox v-model="form.insert" label="网易云"></el-checkbox>
-                      </el-row>
-                      <el-button slot="reference">定制功能</el-button>
                     </el-popover>
                   </el-row>
                 </el-form-item>
@@ -229,14 +242,20 @@ export default {
             label: "Choc Optimized",
             options: [
               {
-                label: "Urltest",
+                label: "Basic",
                 value:
-                  "https://raw.githubusercontent.com/Watfaq/sub-web/master/conf/urltest.ini"
-              },
+                  "https://raw.githubusercontent.com/Watfaq/choc-configs/main/configs/basic.ini"
+              }
+            ]
+          }
+        ],
+        remoteTemplate: [
+          {
+            label: "Config Template",
+            options: [
               {
-                label: "No-Urltest",
-                value:
-                  "https://raw.githubusercontent.com/Watfaq/sub-web/master/conf/no-urltest.ini"
+                label: "Basic",
+                value: "https://raw.githubusercontent.com/Watfaq/choc-configs/main/templates/basic.yaml"
               }
             ]
           }
@@ -247,6 +266,7 @@ export default {
         clientType: "",
         customBackend: "",
         remoteConfig: "",
+        remoteTemplate: "",
         excludeRemarks: "",
         includeRemarks: "",
         filename: "",
@@ -264,9 +284,6 @@ export default {
 
         // tpl 定制功能
         tpl: {
-          surge: {
-            doh: false // dns 查询是否使用 DoH
-          },
           clash: {
             doh: false
           }
@@ -317,15 +334,6 @@ export default {
       }
 
       const url = "choc://install-config?url=";
-      window.open(url + this.customSubUrl);
-    },
-    surgeInstall() {
-      if (this.customSubUrl === "") {
-        this.$message.error("请先填写必填项，生成订阅链接");
-        return false;
-      }
-
-      const url = "surge://install-config?url=";
       window.open(url + this.customSubUrl);
     },
     makeUrl() {
@@ -391,16 +399,12 @@ export default {
           this.customSubUrl += "&udp=" + this.form.udp.toString()
         }
 
-        if (this.form.tpl.surge.doh === true) {
-          this.customSubUrl += "&surge.doh=true";
-        }
-
         if (this.form.clientType === "clash") {
-          if (this.form.tpl.clash.doh === true) {
-            this.customSubUrl += "&clash.doh=true";
-          }
-
           this.customSubUrl += "&new_name=" + this.form.new_name.toString();
+          if (this.form.remoteTemplate !== '')
+          {
+            this.customSubUrl += "&clash_rule_base=" + encodeURIComponent(this.form.remoteTemplate);
+          }
         }
       
 
