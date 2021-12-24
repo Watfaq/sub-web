@@ -211,7 +211,10 @@ export default {
         clientTypes: {
           Choc: "clash",
         },
-        backendOptions: [{ value: "https://api.dler.io/sub?" }],
+        backendOptions: [
+          { value: "https://api.dler.io/sub?" },
+          { value: "https://sub.id9.cc/sub?" },
+        ],
         remoteConfig: [
           {
             label: "Choc Optimized",
