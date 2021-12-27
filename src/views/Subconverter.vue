@@ -219,8 +219,11 @@ export default {
           Choc: "clash",
         },
         backendOptions: [
-          { label: 'Dler', value: "https://api.dler.io/sub?" },
-          { label: 'id9', value: "https://sub.id9.cc/sub?" },
+          { label: 'Apper友情提供', value: "http://api.gbpcloud.com/sub?" },
+          { label: 'sub-web作者提供', value: "https://api.wcc.best/sub?" },
+          { label: 'subconverter作者提供', value: "https://subcon.dlj.tf/sub?" },
+          { label: '品云提供', value: "https://sub.id9.cc/sub?" },
+          { label: 'sub作者&lhie1提供', value: "https://api.dler.io/sub?" },
         ],
         remoteConfig: [
           {
